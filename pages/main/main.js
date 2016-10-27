@@ -76,12 +76,19 @@ function requestData(that, targetPage) {
  * @param itemData Gank的接口返回的content值，里面有各种相关的信息
  */
 function bindData(itemData) {
-    var re = new RegExp("[a-zA-z]+://w{2}[^\"]*");
 
-    var title = itemData.content.match(re)[0];
+    var re = new RegExp("[a-zA-z]+://[^\"]*");
+    //图片URL标志之前的是"img alt"
+    var title = itemData.content.split("img alt=")[1].match(re)[0];
 
     //todo 挺奇怪的，小程序不能显示以 （ww+数字） 开头的图片，把它改成 ws 开头就可以了，不知道为什么
-    var src = title.replace("//ww", "//ws");
+    if( -1 != (title.search("//ww"))){
+        var src = title.replace("//ww", "//ws");
+    }
+    //早期的URL不一定是ww开头的，不需要转换直接调用
+    else{
+        var src = title;
+    }
 
     mTitles.push(itemData.title);
     mTimes.push(itemData.publishedAt.split("T")[0]);
