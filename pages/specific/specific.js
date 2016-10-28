@@ -97,9 +97,16 @@ function saveIamge() {
  * @param htmlBlock
  */
 function parseHtml(htmlBlock) {
-    var re = new RegExp("[a-zA-z]+://w{2}[^\"]*");
 
-    mIamgeUrl = htmlBlock.match(re)[0].replace("//ww", "//ws");
+    //这边图片的URL解析同main.js中
+    var re = new RegExp("[a-zA-z]+://[^\"]*");
+    var title = htmlBlock.split("img alt=")[1].match(re)[0];
+
+    if(-1 != title.search("//ww")){
+        mIamgeUrl = title.replace("//ww","//ws");
+    }else{
+        mIamgeUrl = title;
+    }
 
     var tags = [];
     var items = [];

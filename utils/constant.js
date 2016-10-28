@@ -1,6 +1,6 @@
 //url相关
 var BASE_URL = "http://gank.io/api";
-var GET_URL = BASE_URL.concat("/history/content/10/1");
+var GET_URL = BASE_URL.concat("/history/content/100/1");
 
 //error相关
 var ERROR_DATA_IS_NULL = "获取数据为空，请重试";
